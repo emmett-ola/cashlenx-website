@@ -6,17 +6,17 @@ cd "$project_dir"
 
 command -v curl >/dev/null 2>&1 || { echo "curl is required." >&2; exit 1; }
 website_port="$(sed -n 's/^WEBSITE_PORT=//p' .env 2>/dev/null | tail -n 1)"
-website_port="${website_port:-8081}"
+website_port="${website_port:-11065}"
 health_url="${WEBSITE_HEALTH_URL:-http://127.0.0.1:${website_port}/}"
 
 for attempt in $(seq 1 30); do
   if curl --fail --silent --show-error "$health_url" >/dev/null; then
-    echo "Documentation website is healthy: $health_url"
+    echo "Product website is healthy: $health_url"
     exit 0
   fi
   sleep 2
 done
 
-echo "Documentation website health check failed: $health_url" >&2
-docker compose ps cashlenx-docs >&2
+echo "Product website health check failed: $health_url" >&2
+docker compose ps cashlenx-website >&2
 exit 1

@@ -1,6 +1,6 @@
 # CashLenX Website
 
-Single-page documentation scaffold for CashLenX product, landscape, roadmap, API, and developer workflow content.
+Single-page product-introduction website for CashLenX product, landscape, roadmap, API, and developer workflow content.
 
 ## Tech Stack
 
@@ -25,7 +25,7 @@ npm run build
 ## Docker Deployment
 
 The production container builds the Vite site and serves it with nginx on
-container port `8080`. The default host port is `8081` so it can run beside the
+container port `8080`. The default host port is `11065` so it can run beside the
 Flutter web container.
 
 ```bash
@@ -44,6 +44,8 @@ Published ports bind to `127.0.0.1` by default. `.env.sample` also exposes CPU,
 memory, PID, graceful-stop, health-check, and build-image settings. The image
 records the source revision in the OCI `org.opencontainers.image.revision`
 label.
+
+The default container name is `cashlenx-website`.
 
 ## Content
 

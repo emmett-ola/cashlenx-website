@@ -1,5 +1,5 @@
 services:
-  cashlenx-docs:
+  cashlenx-website:
     build:
       context: .
       dockerfile: Dockerfile
@@ -7,8 +7,8 @@ services:
         BUN_BUILD_IMAGE: ${BUN_BUILD_IMAGE:-oven/bun:1-alpine}
         NGINX_IMAGE: ${NGINX_IMAGE:-nginx:alpine}
         GIT_COMMIT: ${GIT_COMMIT:-unknown}
-    image: "${WEBSITE_IMAGE_NAME:-cashlenx-docs}:${WEBSITE_IMAGE_TAG:-latest}"
-    container_name: "${WEBSITE_CONTAINER_NAME:-cashlenx-docs}"
+    image: "${WEBSITE_IMAGE_NAME:-cashlenx-website}:${WEBSITE_IMAGE_TAG:-latest}"
+    container_name: "${WEBSITE_CONTAINER_NAME:-cashlenx-website}"
     restart: unless-stopped
     cpus: ${WEBSITE_CPU_LIMIT:-0.5}
     mem_limit: ${WEBSITE_MEMORY_LIMIT:-256m}
@@ -31,4 +31,4 @@ services:
       retries: ${WEBSITE_HEALTHCHECK_RETRIES:-3}
       start_period: ${WEBSITE_HEALTHCHECK_START_PERIOD:-15s}
     ports:
-      - "${WEBSITE_BIND_ADDRESS:-127.0.0.1}:${WEBSITE_PORT:-8081}:8080"
+      - "${WEBSITE_BIND_ADDRESS:-127.0.0.1}:${WEBSITE_PORT:-11065}:8080"

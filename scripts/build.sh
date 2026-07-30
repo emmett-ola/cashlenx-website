@@ -12,4 +12,4 @@ if [[ "$git_commit" == "unknown" ]] && command -v git >/dev/null 2>&1; then
   git_commit="$(git rev-parse --short HEAD 2>/dev/null || echo unknown)"
 fi
 
-GIT_COMMIT="$git_commit" docker compose build cashlenx-docs
+GIT_COMMIT="$git_commit" docker compose build cashlenx-website
