@@ -1,0 +1,10 @@
+services:
+  cashlenx-docs:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: "${WEBSITE_IMAGE_NAME:-cashlenx-docs}:${WEBSITE_IMAGE_TAG:-latest}"
+    container_name: "${WEBSITE_CONTAINER_NAME:-cashlenx-docs}"
+    restart: unless-stopped
+    ports:
+      - "${WEBSITE_PORT:-8081}:8080"
