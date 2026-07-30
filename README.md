@@ -47,9 +47,6 @@ label.
 
 The default container name is `cashlenx-website`.
 
-After changing `.env.sample`, run `scripts/sync-env.sh`. It appends missing keys
-to the ignored local `.env` without replacing existing configured values.
-
 ## Content
 
 The first scaffold keeps content in `src/App.tsx` so the structure is easy to revise while the documentation source of truth is still settling. Later, the arrays can be replaced with MDX, generated OpenAPI summaries, or content loaded from the CashLenX server docs.
