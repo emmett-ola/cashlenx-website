@@ -3,8 +3,32 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+      args:
+        BUN_BUILD_IMAGE: ${BUN_BUILD_IMAGE:-oven/bun:1-alpine}
+        NGINX_IMAGE: ${NGINX_IMAGE:-nginx:alpine}
+        GIT_COMMIT: ${GIT_COMMIT:-unknown}
     image: "${WEBSITE_IMAGE_NAME:-cashlenx-docs}:${WEBSITE_IMAGE_TAG:-latest}"
     container_name: "${WEBSITE_CONTAINER_NAME:-cashlenx-docs}"
     restart: unless-stopped
+    cpus: ${WEBSITE_CPU_LIMIT:-0.5}
+    mem_limit: ${WEBSITE_MEMORY_LIMIT:-256m}
+    mem_reservation: ${WEBSITE_MEMORY_RESERVATION:-64m}
+    pids_limit: ${WEBSITE_PIDS_LIMIT:-128}
+    stop_grace_period: ${WEBSITE_STOP_GRACE_PERIOD:-15s}
+    deploy:
+      resources:
+        limits:
+          cpus: "${WEBSITE_CPU_LIMIT:-0.5}"
+          memory: ${WEBSITE_MEMORY_LIMIT:-256m}
+          pids: ${WEBSITE_PIDS_LIMIT:-128}
+        reservations:
+          cpus: "${WEBSITE_CPU_RESERVATION:-0.1}"
+          memory: ${WEBSITE_MEMORY_RESERVATION:-64m}
+    healthcheck:
+      test: ["CMD-SHELL", "wget --quiet --spider --timeout=3 http://127.0.0.1:8080/ || exit 1"]
+      interval: ${WEBSITE_HEALTHCHECK_INTERVAL:-15s}
+      timeout: ${WEBSITE_HEALTHCHECK_TIMEOUT:-5s}
+      retries: ${WEBSITE_HEALTHCHECK_RETRIES:-3}
+      start_period: ${WEBSITE_HEALTHCHECK_START_PERIOD:-15s}
     ports:
-      - "${WEBSITE_PORT:-8081}:8080"
+      - "${WEBSITE_BIND_ADDRESS:-127.0.0.1}:${WEBSITE_PORT:-8081}:8080"

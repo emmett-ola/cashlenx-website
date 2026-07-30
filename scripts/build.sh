@@ -7,4 +7,9 @@ cd "$project_dir"
 command -v docker >/dev/null 2>&1 || { echo "Docker is required." >&2; exit 1; }
 docker compose version >/dev/null 2>&1 || { echo "Docker Compose is required." >&2; exit 1; }
 
-docker compose build cashlenx-docs
+git_commit="${GIT_COMMIT:-unknown}"
+if [[ "$git_commit" == "unknown" ]] && command -v git >/dev/null 2>&1; then
+  git_commit="$(git rev-parse --short HEAD 2>/dev/null || echo unknown)"
+fi
+
+GIT_COMMIT="$git_commit" docker compose build cashlenx-docs

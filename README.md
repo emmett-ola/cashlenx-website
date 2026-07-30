@@ -40,6 +40,11 @@ scripts/start.sh
 `WEBSITE_HEALTH_URL` in the shell when the service is checked through a reverse
 proxy.
 
+Published ports bind to `127.0.0.1` by default. `.env.sample` also exposes CPU,
+memory, PID, graceful-stop, health-check, and build-image settings. The image
+records the source revision in the OCI `org.opencontainers.image.revision`
+label.
+
 ## Content
 
 The first scaffold keeps content in `src/App.tsx` so the structure is easy to revise while the documentation source of truth is still settling. Later, the arrays can be replaced with MDX, generated OpenAPI summaries, or content loaded from the CashLenX server docs.
