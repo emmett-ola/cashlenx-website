@@ -29,7 +29,7 @@ container port `8080`. The default host port is `11065` so it can run beside the
 Flutter web container.
 
 ```bash
-cp .env.sample .env
+cp .env.example .env
 scripts/build.sh
 scripts/start.sh
 scripts/stop.sh
@@ -40,7 +40,13 @@ updates the container from that existing image without rebuilding and waits for
 the Compose healthcheck. `stop.sh` removes the project container and network
 while preserving built images and persistent volumes.
 
-Published ports bind to `127.0.0.1` by default. `.env.sample` also exposes CPU,
+All three scripts require `.env` by default. Select another repository-local
+file consistently with `ENV_FILE=.env.testing scripts/build.sh`,
+`scripts/start.sh`, and `scripts/stop.sh`. Missing files, repository-external
+paths, active `CHANGE_ME` values on startup, and environment-file symlinks are
+rejected.
+
+Published ports bind to `127.0.0.1` by default. `.env.example` also documents CPU,
 memory, PID, graceful-stop, health-check, and build-image settings. The image
 records the source revision in the OCI `org.opencontainers.image.revision`
 label.

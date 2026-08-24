@@ -1,7 +1,7 @@
 node_modules
 dist
 .env*
-!.env.sample
+!.env.example
 *.log
 *.tsbuildinfo
 vite.config.js
