@@ -35,6 +35,9 @@ scripts/start.sh
 scripts/stop.sh
 ```
 
+Every assignment in `.env.example` is active. Change values directly; no
+configuration is enabled by uncommenting a line.
+
 `build.sh` compiles the Vite site and builds its image. `start.sh` starts or
 updates the container from that existing image without rebuilding and waits for
 the Compose healthcheck. `stop.sh` removes the project container and network
@@ -46,8 +49,8 @@ file consistently with `ENV_FILE=.env.testing scripts/build.sh`,
 paths, active `CHANGE_ME` values on startup, and environment-file symlinks are
 rejected.
 
-Published ports bind to `127.0.0.1` by default. `.env.example` also documents CPU,
-memory, PID, graceful-stop, health-check, and build-image settings. The image
+Published ports bind to `127.0.0.1` by default. `.env.example` explicitly sets
+CPU, memory, PID, graceful-stop, health-check, and build-image values. The image
 records the source revision in the OCI `org.opencontainers.image.revision`
 label.
 
