@@ -40,8 +40,9 @@ configuration is enabled by uncommenting a line.
 
 `build.sh` compiles the Vite site and builds its image. `start.sh` starts or
 updates the container from that existing image without rebuilding and waits for
-the Compose healthcheck. `stop.sh` removes the project container and network
-while preserving built images and persistent volumes.
+the Compose healthcheck. `stop.sh` removes the project container while
+preserving built images and persistent volumes. It removes the shared network
+only when no CashLenX container remains attached.
 
 All three scripts require `.env` by default. Select another repository-local
 file consistently with `ENV_FILE=.env.testing scripts/build.sh`,
@@ -55,6 +56,13 @@ records the source revision in the OCI `org.opencontainers.image.revision`
 label.
 
 The default container name is `cashlenx-website`.
+
+Compose reads `docker/compose.yml` and builds from `docker/Dockerfile`. The
+default project, container, and shared-network names are `cashlenx-website`,
+`cashlenx-website`, and `cashlenx-network`. Configure them explicitly with
+`WEBSITE_PROJECT_NAME`, `WEBSITE_CONTAINER_NAME`, and `DOCKER_NETWORK_NAME`.
+`start.sh` creates the external network when needed; keep its absolute name
+identical in every CashLenX environment file.
 
 ## Content
 
