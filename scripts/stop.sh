@@ -7,4 +7,5 @@ cd "$project_dir"
 command -v docker >/dev/null 2>&1 || { echo "Docker is required." >&2; exit 1; }
 docker compose version >/dev/null 2>&1 || { echo "Docker Compose is required." >&2; exit 1; }
 
-docker compose up -d --no-build --remove-orphans --wait cashlenx-website
+# Keep the built image and any current or future persistent volumes.
+docker compose down --remove-orphans

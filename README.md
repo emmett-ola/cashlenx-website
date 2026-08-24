@@ -32,13 +32,13 @@ Flutter web container.
 cp .env.sample .env
 scripts/build.sh
 scripts/start.sh
+scripts/stop.sh
 ```
 
-`build.sh` builds the image. `start.sh` updates the container without running
-`docker compose down` and then waits for the HTTP health check. Use
-`scripts/health.sh` to check it independently. Set `WEBSITE_PORT` in `.env` or
-`WEBSITE_HEALTH_URL` in the shell when the service is checked through a reverse
-proxy.
+`build.sh` compiles the Vite site and builds its image. `start.sh` starts or
+updates the container from that existing image without rebuilding and waits for
+the Compose healthcheck. `stop.sh` removes the project container and network
+while preserving built images and persistent volumes.
 
 Published ports bind to `127.0.0.1` by default. `.env.sample` also exposes CPU,
 memory, PID, graceful-stop, health-check, and build-image settings. The image
