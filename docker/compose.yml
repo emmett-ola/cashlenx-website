@@ -1,8 +1,8 @@
 services:
   cashlenx-website:
     build:
-      context: .
-      dockerfile: Dockerfile
+      context: ..
+      dockerfile: docker/Dockerfile
       args:
         BUN_BUILD_IMAGE: ${BUN_BUILD_IMAGE:-oven/bun:1-alpine}
         NGINX_IMAGE: ${NGINX_IMAGE:-nginx:alpine}
@@ -32,3 +32,10 @@ services:
       start_period: ${WEBSITE_HEALTHCHECK_START_PERIOD:-15s}
     ports:
       - "${WEBSITE_BIND_ADDRESS:-127.0.0.1}:${WEBSITE_PORT:-11065}:8080"
+    networks:
+      - cashlenx-network
+
+networks:
+  cashlenx-network:
+    name: ${DOCKER_NETWORK_NAME:-cashlenx-network}
+    external: true
