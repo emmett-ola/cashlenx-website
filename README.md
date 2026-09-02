@@ -48,8 +48,9 @@ only when no CashLenX container remains attached.
 All three scripts require `.env` by default. Select another repository-local
 file consistently with `ENV_FILE=.env.testing scripts/build.sh`,
 `scripts/start.sh`, and `scripts/stop.sh`. Missing files, repository-external
-paths, active `CHANGE_ME` values on startup, and environment-file symlinks are
-rejected.
+paths, and active `CHANGE_ME` values on startup are rejected. `.env` may be a
+symbolic link to a repository-local `.env.local`, `.env.testing`, or
+`.env.production`; links resolving outside the repository are rejected.
 
 Published ports bind to `127.0.0.1` by default. `.env.example` explicitly sets
 CPU, memory, PID, graceful-stop, health-check, and build-image values. The image
