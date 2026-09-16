@@ -57,7 +57,7 @@ for frontend in docker nerdctl; do
   FAKE_FRONTEND_KIND="$frontend" run_script scripts/start.sh
   FAKE_FRONTEND_KIND="$frontend" run_script scripts/stop.sh
   assert_log_contains "image inspect cashlenx-website:latest"
-  assert_log_contains "up -d --no-build --remove-orphans cashlenx-website"
+  assert_log_contains "up -d --no-build --pull never --remove-orphans cashlenx-website"
   assert_log_contains "down --remove-orphans"
   assert_log_not_contains "config --images"
   assert_log_not_contains "--wait"
@@ -66,7 +66,7 @@ done
 
 reset_log
 FAKE_FRONTEND_KIND=nerdctl FAKE_VERBOSE_VERSION=true run_script scripts/start.sh
-assert_log_contains "up -d --no-build --remove-orphans cashlenx-website"
+assert_log_contains "up -d --no-build --pull never --remove-orphans cashlenx-website"
 
 reset_log
 output="$(FAKE_SECRET_OUTPUT=lifecycle-sensitive-value run_script scripts/start.sh 2>&1)"

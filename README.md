@@ -76,6 +76,8 @@ before mutation, and the built image reference is derived from validated
 `WEBSITE_IMAGE_NAME` and `WEBSITE_IMAGE_TAG` values rather than
 `compose config --images`. Start commands suppress frontend command traces so
 environment values cannot leak through nerdctl's informational output.
+Start also uses `--pull never`; a controlled deployment must preload the exact
+verified Website image rather than resolving a registry tag during replacement.
 
 All three scripts require `.env` by default. Select another repository-local
 file consistently with `ENV_FILE=.env.testing scripts/build.sh`,

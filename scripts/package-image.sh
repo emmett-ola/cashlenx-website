@@ -38,7 +38,7 @@ save_image "$output_dir/$artifact" "$image_ref"
 artifact_sha="$(sha256sum "$output_dir/$artifact" | awk '{print $1}')"
 input_sha="$(sha256sum bun.lock package-lock.json docker/Dockerfile docker/images.env | sha256sum | awk '{print $1}')"
 
-printf '{"artifact":"%s","artifact_sha256":"%s","image_id":"%s","input_set_sha256":"%s","revision":"%s","version":"%s"}\n' \
-  "$artifact" "$artifact_sha" "$image_id" "$input_sha" "$revision" "$expected_version" \
+printf '{"schema_version":2,"component":"website","artifact":"%s","artifact_sha256":"%s","image_id":"%s","image_ref":"%s","input_set_sha256":"%s","revision":"%s","version":"%s"}\n' \
+  "$artifact" "$artifact_sha" "$image_id" "$image_ref" "$input_sha" "$revision" "$expected_version" \
   > "$output_dir/${artifact}.json"
 printf '%s  %s\n' "$artifact_sha" "$artifact" > "$output_dir/${artifact}.sha256"

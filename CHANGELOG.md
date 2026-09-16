@@ -7,6 +7,8 @@ describe website artifacts separately from deployment state.
 
 ### Changed
 
+- Added exact candidate image references to package metadata and made website
+  container start fail instead of pulling a missing configured image.
 - Made build, start, stop, verification, and image packaging portable across
   Docker Compose and nerdctl 2.2 with pre-mutation capability checks and
   configured image identity, value-safe start output, and bounded readiness.

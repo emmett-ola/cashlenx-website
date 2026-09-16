@@ -40,5 +40,5 @@ container_name="$(read_config_value WEBSITE_CONTAINER_NAME cashlenx-website)"
 compose_args=(--env-file "$env_file" -f "$compose_file")
 compose_preflight "${compose_args[@]}"
 ensure_network "$network_name"
-compose_up_quiet "${compose_args[@]}" up -d --no-build --remove-orphans cashlenx-website
+compose_up_quiet "${compose_args[@]}" up -d --no-build --pull never --remove-orphans cashlenx-website
 wait_for_container_command "$container_name" sh -ec 'wget --quiet --spider --timeout=3 http://127.0.0.1:8080/'
