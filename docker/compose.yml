@@ -6,9 +6,10 @@ services:
       context: ..
       dockerfile: docker/Dockerfile
       args:
-        BUN_BUILD_IMAGE: ${BUN_BUILD_IMAGE:-oven/bun:1-alpine}
-        NGINX_IMAGE: ${NGINX_IMAGE:-nginx:alpine}
-        GIT_COMMIT: ${GIT_COMMIT:-unknown}
+        BUN_BUILD_IMAGE: ${BUN_BUILD_IMAGE:?BUN_BUILD_IMAGE is required from docker/images.env}
+        NGINX_IMAGE: ${NGINX_IMAGE:?NGINX_IMAGE is required from docker/images.env}
+        GIT_COMMIT: ${GIT_COMMIT:?GIT_COMMIT is required}
+        PRODUCT_VERSION: ${PRODUCT_VERSION:?PRODUCT_VERSION is required}
     image: "${WEBSITE_IMAGE_NAME:-cashlenx-website}:${WEBSITE_IMAGE_TAG:-latest}"
     container_name: "${WEBSITE_CONTAINER_NAME:-cashlenx-website}"
     restart: unless-stopped

@@ -1,5 +1,17 @@
-.git
-node_modules
-dist
-*.log
-*.tsbuildinfo
+# The image build is allowlisted. Add a path only when the release build needs it.
+*
+!.dockerignore
+!package.json
+!bun.lock
+!index.html
+!tsconfig.json
+!tsconfig.app.json
+!tsconfig.node.json
+!vite.config.ts
+!src/
+!src/**
+!public/
+!public/**
+!docker/
+!docker/Dockerfile
+!docker/nginx.conf
