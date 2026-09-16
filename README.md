@@ -54,6 +54,9 @@ Flutter web container.
 cp .env.example .env
 scripts/build.sh
 scripts/start.sh
+scripts/status.sh
+scripts/doctor.sh
+scripts/logs.sh 100
 scripts/stop.sh
 ```
 
@@ -67,6 +70,13 @@ or Compose-managed health status. `stop.sh` removes the project container while
 preserving built images and persistent volumes. It removes the shared network
 only when no CashLenX container remains attached.
 
+`status.sh` reports non-secret frontend capabilities, requested and effective
+image identity, network/container state, and live in-container health, and exits
+nonzero for a degraded condition. `doctor.sh` emits the same facts with an
+incident-friendly diagnostic marker. `logs.sh [lines]` accepts 1 to 99999 lines
+(100 by default). `stop.sh` enforces the configured grace bound, distinguishes
+graceful, already-stopped, forced, and failed results, and is safe to repeat.
+
 The lifecycle supports Docker Compose v2 and nerdctl 2.2 or newer. The
 `CONTAINER_FRONTEND` setting accepts `auto`, `docker`, or `nerdctl`; auto mode
 detects the implementation reported by the selected command, including a
@@ -79,7 +89,7 @@ environment values cannot leak through nerdctl's informational output.
 Start also uses `--pull never`; a controlled deployment must preload the exact
 verified Website image rather than resolving a registry tag during replacement.
 
-All three scripts require `.env` by default. Select another repository-local
+All lifecycle scripts require `.env` by default. Select another repository-local
 file consistently with `ENV_FILE=.env.testing scripts/build.sh`,
 `scripts/start.sh`, and `scripts/stop.sh`. Missing files, repository-external
 paths, and active `CHANGE_ME` values on startup are rejected. `.env` may be a
