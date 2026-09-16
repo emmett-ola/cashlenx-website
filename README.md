@@ -37,8 +37,12 @@ npm run dev
 ## Build
 
 ```bash
+npm ci
 npm run build
 ```
+
+GitHub Actions runs the same clean install and production build on `develop`,
+`testing`, `main`, and pull requests targeting those branches.
 
 ## Docker Deployment
 
