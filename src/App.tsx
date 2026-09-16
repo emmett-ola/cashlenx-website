@@ -448,7 +448,7 @@ function Overview({ goToPage }: { goToPage: (page: Page) => void }) {
           </div>
           <pre>{`cashlenx
   api: /api/v1
-  version: 0.11.0
+  version: 1.0.0-rc.1
   storage: mongodb | mysql
   clients: rest | cli | flutter`}</pre>
         </div>
@@ -611,7 +611,7 @@ function ReferencePage({ kind }: { kind: "api" | "cli" }) {
           </div>
         )}
         <div className="reference-meta">
-          <span>Version 0.11.0</span>
+          <span>Version 1.0.0-rc.1</span>
           <span>{isApi ? `Base URL ${apiBaseUrl}` : "Entrypoint go run main.go"}</span>
           <span>{groups.reduce((total, group) => total + group.items.length, 0)} entries</span>
         </div>
@@ -877,7 +877,7 @@ function getResponseDataExample(method: string, path: string): unknown {
     return { status: "ok" };
   }
   if (path.includes("/version")) {
-    return { version: "0.11.0", api_version: "v1", supported_api_versions: ["v1", "v0"] };
+    return { version: "1.0.0-rc.1", api_version: "v1", supported_api_versions: ["v1", "v0"] };
   }
   if (path.includes("/auth/login") || path.includes("/auth/register")) {
     return {

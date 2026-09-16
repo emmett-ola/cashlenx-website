@@ -36,3 +36,25 @@ jobs:
 
       - name: Build website
         run: npm run build
+
+  package-candidate:
+    name: Package untagged candidate
+    if: github.event_name == 'workflow_dispatch'
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout exact source
+        uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+
+      - name: Build and package verified image
+        run: scripts/package-image.sh "$RUNNER_TEMP/candidate"
+
+      - name: Upload candidate artifacts
+        uses: actions/upload-artifact@v7
+        with:
+          name: cashlenx-website-candidate-${{ github.sha }}
+          path: ${{ runner.temp }}/candidate
+          if-no-files-found: error
+          retention-days: 14
