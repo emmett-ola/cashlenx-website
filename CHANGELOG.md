@@ -14,6 +14,9 @@ describe website artifacts separately from deployment state.
   configured image identity, value-safe start output, and bounded readiness.
 - Added one-shot status/doctor diagnostics, bounded logs, verified effective
   image identity, and observable graceful, forced, and repeated-stop outcomes.
+- Standardized CI and containers on Bun 1.4.0 and the sole authoritative
+  `bun.lock`, removed the npm lockfile, and added canonical image validation to
+  normal CI.
 
 ## [1.0.0-rc.1] - 2026-09-16
 

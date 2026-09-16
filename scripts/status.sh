@@ -5,7 +5,7 @@ cd "$project_dir"
 . "$project_dir/scripts/lib/container_lifecycle.sh"
 env_file="$(resolve_env_file)"
 container_runtime_init "$(read_config_value CONTAINER_FRONTEND auto)"
-load_env_defaults "$project_dir/docker/images.env" BUN_BUILD_IMAGE NGINX_IMAGE
+load_env_defaults "$project_dir/docker/images.env" BUN_BUILD_IMAGE BUN_VERSION NGINX_IMAGE
 compose_args=(--env-file "$env_file" -f "$project_dir/docker/compose.yml")
 compose_preflight "${compose_args[@]}"
 diagnose_container "$(read_config_value WEBSITE_CONTAINER_NAME cashlenx-website)" \

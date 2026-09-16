@@ -4,6 +4,8 @@
 pinned by digest so clean and warm builds use the same inputs. Update one pin in
 an isolated change, build and verify the candidate image, and roll back by
 reverting that change.
+The same file pins Bun 1.4.0. The Dockerfile verifies that identity before a
+frozen install, and CI uses the identical Bun version and sole `bun.lock` file.
 
 The root build context is allowlisted by `.dockerignore`. Environment files,
 credentials, Git state, dependency caches, local output, and unrelated files are

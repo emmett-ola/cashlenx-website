@@ -7,6 +7,7 @@ services:
       dockerfile: docker/Dockerfile
       args:
         BUN_BUILD_IMAGE: ${BUN_BUILD_IMAGE:?BUN_BUILD_IMAGE is required from docker/images.env}
+        BUN_VERSION: ${BUN_VERSION:?BUN_VERSION is required from docker/images.env}
         NGINX_IMAGE: ${NGINX_IMAGE:?NGINX_IMAGE is required from docker/images.env}
         GIT_COMMIT: ${GIT_COMMIT:-0000000000000000000000000000000000000000}
         PRODUCT_VERSION: ${PRODUCT_VERSION:-0.0.0}

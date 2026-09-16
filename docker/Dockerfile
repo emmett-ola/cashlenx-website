@@ -3,12 +3,15 @@ ARG NGINX_IMAGE=nginx:alpine@sha256:db35bfc6b2951e7f8a72db5db120288c127ffaeeb4a6
 
 FROM ${BUN_BUILD_IMAGE} AS build
 
+ARG BUN_VERSION
+RUN test "$(bun --version)" = "${BUN_VERSION}"
+
 WORKDIR /app
 COPY package.json bun.lock ./
-RUN bun install --frozen-lockfile
+RUN bun --no-env-file install --frozen-lockfile
 
 COPY . .
-RUN bun run build
+RUN bun --no-env-file run build
 
 FROM ${NGINX_IMAGE}
 

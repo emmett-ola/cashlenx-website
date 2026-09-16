@@ -22,25 +22,40 @@ jobs:
       - name: Checkout source
         uses: actions/checkout@v7
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v7
+      - name: Set up Bun
+        uses: oven-sh/setup-bun@v2
         with:
-          node-version: '22'
-          cache: npm
+          bun-version: '1.4.0'
 
       - name: Install dependencies
-        run: npm ci
+        run: bun --no-env-file install --frozen-lockfile
+
+      - name: Verify exact Bun toolchain
+        run: test "$(bun --version)" = '1.4.0'
 
       - name: Audit production and build dependencies
-        run: npm audit --audit-level=high
+        run: scripts/audit-dependencies.sh
 
       - name: Build website
-        run: npm run build
+        run: bun --no-env-file run build
+
+  validate-image:
+    name: Validate deployable image
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout exact source
+        uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+
+      - name: Build through the canonical repository entry point
+        run: ENV_FILE=.env.example scripts/build.sh
 
   package-candidate:
     name: Package untagged candidate
     if: github.event_name == 'workflow_dispatch'
-    needs: build
+    needs: [build, validate-image]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout exact source

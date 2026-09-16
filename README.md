@@ -30,19 +30,24 @@ depend on the spec or design reference at build time or runtime.
 ## Development
 
 ```bash
-npm install
-npm run dev
+bun --no-env-file install --frozen-lockfile
+bun run dev
 ```
 
 ## Build
 
 ```bash
-npm ci
-npm run build
+bun --no-env-file install --frozen-lockfile
+scripts/audit-dependencies.sh
+bun --no-env-file run build
 ```
 
 GitHub Actions runs the same clean install and production build on `develop`,
 `testing`, `main`, and pull requests targeting those branches.
+`bun.lock` is the only dependency lockfile. CI and the container build both use
+Bun 1.4.0 and fail if the lockfile or pinned toolchain identity drifts.
+The audit wrapper also fails CI on high or critical findings even though Bun's
+human-readable audit command does not itself provide a failing exit status.
 
 ## Docker Deployment
 
