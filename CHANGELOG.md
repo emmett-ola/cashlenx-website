@@ -3,6 +3,14 @@
 All notable changes to the CashLenX product website are recorded here. Entries
 describe website artifacts separately from deployment state.
 
+## [Unreleased]
+
+### Changed
+
+- Made build, start, stop, verification, and image packaging portable across
+  Docker Compose and nerdctl 2.2 with pre-mutation capability checks and
+  configured image identity, value-safe start output, and bounded readiness.
+
 ## [1.0.0-rc.1] - 2026-09-16
 
 ### Added

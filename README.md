@@ -67,6 +67,16 @@ or Compose-managed health status. `stop.sh` removes the project container while
 preserving built images and persistent volumes. It removes the shared network
 only when no CashLenX container remains attached.
 
+The lifecycle supports Docker Compose v2 and nerdctl 2.2 or newer. The
+`CONTAINER_FRONTEND` setting accepts `auto`, `docker`, or `nerdctl`; auto mode
+detects the implementation reported by the selected command, including a
+`docker` wrapper around nerdctl. `CONTAINER_CLI` is an invoking-shell override
+for a nonstandard executable path. Frontend and Compose configuration checks run
+before mutation, and the built image reference is derived from validated
+`WEBSITE_IMAGE_NAME` and `WEBSITE_IMAGE_TAG` values rather than
+`compose config --images`. Start commands suppress frontend command traces so
+environment values cannot leak through nerdctl's informational output.
+
 All three scripts require `.env` by default. Select another repository-local
 file consistently with `ENV_FILE=.env.testing scripts/build.sh`,
 `scripts/start.sh`, and `scripts/stop.sh`. Missing files, repository-external
@@ -87,6 +97,9 @@ default project, container, and shared-network names are `cashlenx-website`,
 `WEBSITE_PROJECT_NAME`, `WEBSITE_CONTAINER_NAME`, and `DOCKER_NETWORK_NAME`.
 `start.sh` creates the external network when needed; keep its absolute name
 identical in every CashLenX environment file.
+
+Run `test/scripts/container-lifecycle-smoke.sh` for mutation-free Docker and
+nerdctl command-shape, wrapper, symlink, and negative capability checks.
 
 ## Content
 

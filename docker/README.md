@@ -12,3 +12,7 @@ never sent to the builder.
 Run `scripts/build.sh` to derive and validate the package version and full source
 revision, build from `bun.lock`, and verify required runtime files, OCI labels,
 public build metadata, and prohibited file absence.
+
+The repository-local lifecycle helper supports Docker Compose v2 and nerdctl
+2.2+, checks capabilities before mutation, and derives the image reference from
+`WEBSITE_IMAGE_NAME` plus `WEBSITE_IMAGE_TAG` without `config --images`.

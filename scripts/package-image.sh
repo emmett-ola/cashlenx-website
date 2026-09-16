@@ -3,13 +3,17 @@ set -euo pipefail
 
 project_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd -P)"
 cd "$project_dir"
+. "$project_dir/scripts/lib/container_lifecycle.sh"
+ENV_FILE="${ENV_FILE:-.env.example}"
+env_file="$(resolve_env_file)"
+container_runtime_init "$(read_config_value CONTAINER_FRONTEND auto "$env_file")"
 
 output_dir="${1:?output directory is required}"
 if command -v cygpath >/dev/null 2>&1; then
   output_dir="$(cygpath -u "$output_dir")"
 fi
-expected_version="${PRODUCT_VERSION:-$(sed -n 's/^[[:space:]]*"version":[[:space:]]*"\([^"]*\)".*/\1/p' package.json | head -n 1 | tr -d '\r')}"
-source_version="$(sed -n 's/^[[:space:]]*"version":[[:space:]]*"\([^"]*\)".*/\1/p' package.json | head -n 1 | tr -d '\r')"
+expected_version="${PRODUCT_VERSION:-$(sed -n 's/^[[:space:]]*"version":[[:space:]]*"\([^"]*\)".*/\1/p' package.json | sed -n '1p' | tr -d '\r')}"
+source_version="$(sed -n 's/^[[:space:]]*"version":[[:space:]]*"\([^"]*\)".*/\1/p' package.json | sed -n '1p' | tr -d '\r')"
 lock_version="$(sed -n '3s/^[[:space:]]*"version":[[:space:]]*"\([^"]*\)".*/\1/p' package-lock.json | tr -d '\r')"
 revision="${GIT_COMMIT:-$(git rev-parse HEAD)}"
 
@@ -26,11 +30,11 @@ image_name="cashlenx-website-candidate"
 image_tag="${expected_version}-${short_revision}"
 image_ref="${image_name}:${image_tag}"
 
-BUILDX_NO_DEFAULT_ATTESTATIONS=1 ENV_FILE="${ENV_FILE:-.env.example}" WEBSITE_IMAGE_NAME="$image_name" WEBSITE_IMAGE_TAG="$image_tag" \
+BUILDX_NO_DEFAULT_ATTESTATIONS=1 ENV_FILE="$ENV_FILE" WEBSITE_IMAGE_NAME="$image_name" WEBSITE_IMAGE_TAG="$image_tag" \
   PRODUCT_VERSION="$expected_version" GIT_COMMIT="$revision" "$project_dir/scripts/build.sh"
 
-image_id="$(docker image inspect "$image_ref" --format '{{.Id}}')"
-docker image save --output "$output_dir/$artifact" "$image_ref"
+image_id="$(container image inspect "$image_ref" --format '{{.Id}}')"
+save_image "$output_dir/$artifact" "$image_ref"
 artifact_sha="$(sha256sum "$output_dir/$artifact" | awk '{print $1}')"
 input_sha="$(sha256sum bun.lock package-lock.json docker/Dockerfile docker/images.env | sha256sum | awk '{print $1}')"
 
