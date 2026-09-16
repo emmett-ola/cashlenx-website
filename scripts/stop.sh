@@ -75,5 +75,5 @@ env_file="$(resolve_env_file)"
 network_name="$(resolve_network_name)"
 
 # Keep the built image and any current or future persistent volumes.
-docker compose --env-file "$env_file" -f "$compose_file" down --remove-orphans
+docker compose --env-file "$project_dir/docker/images.env" --env-file "$env_file" -f "$compose_file" down --remove-orphans
 remove_network_if_unused "$network_name"

@@ -108,6 +108,6 @@ network_name="$(resolve_network_name)"
 ensure_network "$network_name"
 container_name="$(read_env_value WEBSITE_CONTAINER_NAME)"
 container_name="${container_name:-cashlenx-website}"
-docker compose --env-file "$env_file" -f "$compose_file" up -d --no-build --remove-orphans cashlenx-website
+docker compose --env-file "$project_dir/docker/images.env" --env-file "$env_file" -f "$compose_file" up -d --no-build --remove-orphans cashlenx-website
 wait_for_container_command "$container_name" sh -ec \
   'wget --quiet --spider --timeout=3 http://127.0.0.1:8080/'
