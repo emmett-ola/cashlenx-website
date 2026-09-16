@@ -23,7 +23,7 @@ import {
 
 type Icon = typeof WalletCards;
 type Page = "overview" | "api" | "cli";
-type ApiVersion = "v0";
+type ApiVersion = "v1" | "v0";
 
 type Feature = {
   icon: Icon;
@@ -447,8 +447,8 @@ function Overview({ goToPage }: { goToPage: (page: Page) => void }) {
             <span></span>
           </div>
           <pre>{`cashlenx
-  api: /api/v0
-  version: 0.8.0
+  api: /api/v1
+  version: 0.11.0
   storage: mongodb | mysql
   clients: rest | cli | flutter`}</pre>
         </div>
@@ -501,8 +501,8 @@ function Overview({ goToPage }: { goToPage: (page: Page) => void }) {
           <p className="eyebrow">Roadmap</p>
           <h2 id="roadmap-title">Milestones toward a stable API</h2>
           <p>
-            The project is in active v0.x development. Routes stay under /api/v0 until stable
-            release readiness introduces the compatibility policy.
+            The stable contract is canonical under /api/v1. The frozen /api/v0 alias keeps
+            previously shipped clients working while release readiness is completed.
           </p>
         </div>
 
@@ -567,14 +567,14 @@ function Overview({ goToPage }: { goToPage: (page: Page) => void }) {
 function ReferencePage({ kind }: { kind: "api" | "cli" }) {
   const isApi = kind === "api";
   const [apiOrigin, setApiOrigin] = useState("http://localhost:8080");
-  const [apiVersion, setApiVersion] = useState<ApiVersion>("v0");
+  const [apiVersion, setApiVersion] = useState<ApiVersion>("v1");
   const [selectedEndpoint, setSelectedEndpoint] = useState(firstApiEndpoint);
   const groups = isApi ? apiGroups : cliGroups;
   const title = isApi ? "API Reference" : "CLI Reference";
   const apiBaseUrl = `${apiOrigin.replace(/\/+$/, "")}/api/${apiVersion}`;
   const endpointDetail = getEndpointDetail(selectedEndpoint);
   const summary = isApi
-    ? "Complete route surface for the current /api/v0 contract, grouped by product domain."
+    ? "Complete route surface for the canonical /api/v1 contract, grouped by product domain."
     : "Complete command surface for the current Cobra CLI, grouped by workflow.";
 
   return (
@@ -600,7 +600,8 @@ function ReferencePage({ kind }: { kind: "api" | "cli" }) {
                 value={apiVersion}
                 onChange={(event) => setApiVersion(event.target.value as ApiVersion)}
               >
-                <option value="v0">v0</option>
+                <option value="v1">v1 (canonical)</option>
+                <option value="v0">v0 (compatibility)</option>
               </select>
             </label>
             <div>
@@ -610,7 +611,7 @@ function ReferencePage({ kind }: { kind: "api" | "cli" }) {
           </div>
         )}
         <div className="reference-meta">
-          <span>Version 0.8.0</span>
+          <span>Version 0.11.0</span>
           <span>{isApi ? `Base URL ${apiBaseUrl}` : "Entrypoint go run main.go"}</span>
           <span>{groups.reduce((total, group) => total + group.items.length, 0)} entries</span>
         </div>
@@ -876,7 +877,7 @@ function getResponseDataExample(method: string, path: string): unknown {
     return { status: "ok" };
   }
   if (path.includes("/version")) {
-    return { version: "0.8.0", api_version: "v0" };
+    return { version: "0.11.0", api_version: "v1", supported_api_versions: ["v1", "v0"] };
   }
   if (path.includes("/auth/login") || path.includes("/auth/register")) {
     return {
