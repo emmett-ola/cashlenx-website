@@ -2,6 +2,24 @@
 
 Single-page product-introduction website for CashLenX product, landscape, roadmap, API, and developer workflow content.
 
+## CashLenX Project
+
+CashLenX is developed as a set of independently buildable repositories with
+explicit ownership boundaries:
+
+| Repository | Responsibility |
+| --- | --- |
+| [cashlenx-app](https://github.com/emmett-ola/cashlenx-app) | Cross-platform Flutter client and user experience. |
+| [cashlenx-server](https://github.com/emmett-ola/cashlenx-server) | Go REST API, Cobra CLI, authentication, finance services, and MongoDB/MySQL persistence. |
+| [cashlenx-design](https://github.com/emmett-ola/cashlenx-design) | Figma-exported React/Vite visual and interaction reference. |
+| [cashlenx-website](https://github.com/emmett-ola/cashlenx-website) | Public product and developer-information website. |
+| [cashlenx-spec](https://github.com/emmett-ola/cashlenx-spec) | Product and system facts, delivery workflow, decisions, and retained evidence. |
+
+This repository owns the public product and developer-information website.
+Cross-repository contracts are coordinated through OpenAPI and the CashLenX
+Spec workflow. Runtime repositories remain independently buildable and do not
+depend on the spec or design reference at build time or runtime.
+
 ## Tech Stack
 
 - Vite
@@ -69,3 +87,9 @@ identical in every CashLenX environment file.
 ## Content
 
 The first scaffold keeps content in `src/App.tsx` so the structure is easy to revise while the documentation source of truth is still settling. Later, the arrays can be replaced with MDX, generated OpenAPI summaries, or content loaded from the CashLenX server docs.
+
+## License
+
+This project is licensed under the [MIT License](LICENSE). Commercial use,
+modification, and redistribution are permitted when the copyright and license
+notices are retained.
