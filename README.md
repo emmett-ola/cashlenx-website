@@ -45,7 +45,7 @@ bun --no-env-file run build
 GitHub Actions runs the same clean install and production build on `develop`,
 `testing`, `main`, and pull requests targeting those branches.
 `bun.lock` is the only dependency lockfile. CI and the container build both use
-Bun 1.4.0 and fail if the lockfile or pinned toolchain identity drifts.
+Bun 1.4.2 and fail if the lockfile or pinned toolchain identity drifts.
 The audit wrapper also fails CI on high or critical findings even though Bun's
 human-readable audit command does not itself provide a failing exit status.
 

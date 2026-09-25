@@ -7,6 +7,9 @@ describe website artifacts separately from deployment state.
 
 ### Changed
 
+- Upgraded CI and the Website toolchain to Bun 1.4.2 and refreshed React,
+  Vite, TypeScript, Lucide, and the frozen dependency graph to their current
+  major releases.
 - Added exact candidate image references to package metadata and made website
   container start fail instead of pulling a missing configured image.
 - Made build, start, stop, verification, and image packaging portable across
@@ -14,9 +17,6 @@ describe website artifacts separately from deployment state.
   configured image identity, value-safe start output, and bounded readiness.
 - Added one-shot status/doctor diagnostics, bounded logs, verified effective
   image identity, and observable graceful, forced, and repeated-stop outcomes.
-- Standardized CI and containers on Bun 1.4.0 and the sole authoritative
-  `bun.lock`, removed the npm lockfile, and added canonical image validation to
-  normal CI.
 
 ## [1.0.0-rc.1] - 2026-09-16
 
