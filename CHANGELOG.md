@@ -5,7 +5,12 @@ describe website artifacts separately from deployment state.
 
 ## [Unreleased]
 
+## [1.0.3] - 2026-10-09
+
 ### Changed
+
+- Applied the unified CashLenX camera-and-cash brand mark to the site header,
+  favicon, Apple touch icon, and installable web-app metadata.
 
 - Upgraded CI and the Website toolchain to Bun 1.4.2 and refreshed React,
   Vite, TypeScript, Lucide, and the frozen dependency graph to their current
