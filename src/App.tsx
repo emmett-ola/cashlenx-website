@@ -388,7 +388,7 @@ function Header({ page, goToPage }: { page: Page; goToPage: (page: Page) => void
     <header className="site-header">
       <button className="brand" type="button" onClick={() => goToPage("overview")} aria-label="CashLenX home">
         <span className="brand-mark">
-          <img src="/logo_teal.svg" alt="" />
+          <img src="/brand-mark.png" alt="" />
         </span>
         <span>
           <strong>CashLenX</strong>

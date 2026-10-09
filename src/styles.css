@@ -84,14 +84,14 @@ pre {
   height: 42px;
   place-items: center;
   border-radius: 8px;
-  color: #f8fbf6;
-  background: linear-gradient(135deg, var(--green), var(--teal));
-  box-shadow: 0 10px 28px rgba(31, 122, 77, 0.28);
+  border: 1px solid rgba(1, 189, 179, 0.18);
+  background: #ffffff;
+  box-shadow: 0 10px 28px rgba(1, 189, 179, 0.2);
 }
 
 .brand-mark img {
-  width: 28px;
-  height: 28px;
+  width: 34px;
+  height: 34px;
   object-fit: contain;
 }
 
