@@ -425,8 +425,7 @@ function Overview({ goToPage }: { goToPage: (page: Page) => void }) {
           <p className="eyebrow">Personal finance backend and product docs</p>
           <h1 id="hero-title">CashLenX</h1>
           <p className="hero-text">
-            A single place for product context, implementation landscape, milestone planning,
-            API contracts, and developer workflows.
+            Times shape your wealth, mind secures your control.
           </p>
           <div className="hero-actions" aria-label="Document shortcuts">
             <button className="button primary" type="button" onClick={() => goToPage("api")}>
