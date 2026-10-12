@@ -5,6 +5,13 @@ describe website artifacts separately from deployment state.
 
 ## [Unreleased]
 
+## [1.0.9] - 2026-10-12
+
+### Changed
+
+- Published the approved CashLenX slogan on the product hero and installable
+  web-app metadata.
+
 ## [1.0.3] - 2026-10-09
 
 ### Changed
